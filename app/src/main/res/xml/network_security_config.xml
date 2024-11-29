@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+
+<!--        <domain includeSubdomains="true">95.177.171.127</domain>-->
+
+        <domain includeSubdomains="true">liveapi.provizit.com</domain>
+        <domain includeSubdomains="true">192.168.1.20</domain>
+        <domain includeSubdomains="true">provizit.com</domain>
+
+    </domain-config>
+</network-security-config>
