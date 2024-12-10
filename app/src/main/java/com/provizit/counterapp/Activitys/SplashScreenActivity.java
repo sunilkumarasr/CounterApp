@@ -41,7 +41,7 @@ public class SplashScreenActivity extends AppCompatActivity {
                 } catch (Exception ignored) {
                 } finally {
                     if (LOGINCHECK.equals("true")) {
-                        Intent intent = new Intent(SplashScreenActivity.this, CounterActivity.class);
+                        Intent intent = new Intent(SplashScreenActivity.this, DashBoardActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         finish();

@@ -19,6 +19,8 @@
     <color name="a_color1">#4D414F6C</color>
     <color name="m_color1">#1A414F6C</color>
     <color name="r_color1">#33414F6C</color>
+    <color name="blue">#053fbf</color>
+    <color name="green">#018e0a</color>
     <color name="app_tcolor">#414F6C</color>
     <color name="inprogress">#E4080E</color>
     <color name="soon">#1A8EFB</color>

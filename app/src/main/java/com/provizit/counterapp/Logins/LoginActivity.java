@@ -11,9 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.provizit.counterapp.Activitys.CounterActivity;
+import com.provizit.counterapp.Activitys.DashBoardActivity;
 import com.provizit.counterapp.Activitys.PrivacyPolicyActivity;
-import com.provizit.counterapp.Activitys.SplashScreenActivity;
 import com.provizit.counterapp.Config.ViewController;
 import com.provizit.counterapp.Models.CompanyData;
 import com.provizit.counterapp.Models.Model;
@@ -135,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
                         Preferences.saveStringValue(getApplicationContext(), Preferences.comp_id, items.getComp_id());
                         Preferences.saveStringValue(getApplicationContext(), Preferences.email, binding.editEmail.getText().toString().trim().toLowerCase());
 
-                        Intent intent = new Intent(LoginActivity.this, CounterActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                         overridePendingTransition(R.anim.enter, R.anim.exit);

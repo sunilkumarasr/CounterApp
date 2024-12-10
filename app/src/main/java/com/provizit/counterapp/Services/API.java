@@ -16,7 +16,7 @@ public interface API {
     @GET("masters/getuserDetails")
     Call<Model> getuserDetails(@Header("Authorization") String Bearer, @Header("DeviceId") String header, @Query("id") String id);
 
-    @POST("setup/schedulerLogin")
+    @POST("setup/counterLogin")
     Call<Model> getuserLogin(@Header("Authorization") String Bearer, @Header("DeviceId") String header, @Body JsonObject jsonBody);
 
     @GET("company/getmeetingrooms")

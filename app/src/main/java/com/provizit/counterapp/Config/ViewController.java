@@ -16,4 +16,10 @@ public class ViewController {
         window.setStatusBarColor(ContextCompat.getColor(activity, R.color.white));
     }
 
+    public static void barPrimaryColor(Activity activity) {
+        Window window = activity.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(ContextCompat.getColor(activity, R.color.colorPrimary));
+    }
+
 }

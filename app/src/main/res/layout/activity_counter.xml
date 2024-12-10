@@ -1,20 +1,136 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitys.CounterActivity"
-    android:background="@color/white">
+    android:orientation="vertical"
+    tools:context=".Activitys.DashBoardActivity"
+    android:background="@drawable/bg">
 
-    <androidx.appcompat.widget.AppCompatCheckedTextView
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/logo"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:scaleType="fitStart"
+            android:src="@drawable/logo"
+            android:layout_marginStart="@dimen/_16sdp" />
+
+    </LinearLayout>
+    <View
+        android:id="@+id/line1"
+        android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_height="1dp"
+        android:background="#7C707070"/>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Welcome to Counter Screen"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textSize="@dimen/_20sdp"
-        android:textColor="@color/colorPrimary"/>
+        android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            android:background="@drawable/round_blue"
+            android:layout_marginBottom="@dimen/_10sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:gravity="center_vertical"
+                android:layout_weight="0.7">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="01:21 PM"
+                    android:textSize="80sp"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/roboto_bold"/>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Mon, 26 Sep 2022"
+                    android:singleLine="true"
+                    android:textSize="50sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/nunito_semibold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="1"
+                android:background="@drawable/round_white_leftedge_only">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="4045"
+                    android:textSize="130sp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/roboto_bold"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:background="@drawable/round_green">
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:text="Calling....."
+                android:textSize="40sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:fontFamily="@font/nunito_semibold"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:text="Sunil Kumar"
+                android:singleLine="true"
+                android:textSize="100sp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:fontFamily="@font/roboto_bold"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>
