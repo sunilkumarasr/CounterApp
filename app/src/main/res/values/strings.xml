@@ -8,4 +8,8 @@
     <string name="PrivacyPolicy">Privacy Policy</string>
     <string name="NoData">No Data Found</string>
     <string name="welcomeNote">Welcome to PROVIZIT - Your VMS.</string>
+    <string name="CounterList">Counter List</string>
+    <string name="Do_you_want_to_exit_the_application">Do you want to exit the Application?</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
 </resources>

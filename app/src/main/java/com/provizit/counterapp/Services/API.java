@@ -19,6 +19,9 @@ public interface API {
     @POST("setup/counterLogin")
     Call<Model> getuserLogin(@Header("Authorization") String Bearer, @Header("DeviceId") String header, @Body JsonObject jsonBody);
 
+    @GET("company/getcounters")
+    Call<Model1> getcounters(@Header("Authorization") String Bearer, @Header("DeviceId") String header);
+
     @GET("company/getmeetingrooms")
     Call<Model1> getmeetingrooms(@Header("Authorization") String Bearer, @Header("DeviceId") String header, @Query("id") String id, @Query("location") String location);
 

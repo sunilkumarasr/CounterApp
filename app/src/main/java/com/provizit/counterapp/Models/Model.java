@@ -6,8 +6,6 @@ public class Model implements Serializable {
     public Integer result;
     public CompanyData items;
 
-
-
     public Integer getResult() {
         return result;
     }

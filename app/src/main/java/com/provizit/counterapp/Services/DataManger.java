@@ -3,9 +3,12 @@ package com.provizit.counterapp.Services;
 import static android.content.Context.MODE_PRIVATE;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.provizit.counterapp.Config.Preferences;
 import com.provizit.counterapp.Models.Model;
 import com.provizit.counterapp.Models.Model1;
 import com.provizit.counterapp.Models.OutlookModel;
@@ -78,9 +81,17 @@ public class DataManger {
 
     public void userLogin(Callback<Model> cb, Context context, JsonObject data) {
         API apiService = retrofit.create(API.class);
-        String newEncrypt = encrypt(context, true);
+        String newEncrypt = encrypt(context, false);
         String bearer = BEARER + newEncrypt;
         Call<Model> call = apiService.getuserLogin(bearer, newEncrypt, data);
+        call.enqueue(cb);
+    }
+
+    public void getcounters(Callback<Model1> cb, Context context) {
+        API apiService = retrofit.create(API.class);
+        String newEncrypt = encrypt(context, false);
+        String bearer = BEARER + newEncrypt;
+        Call<Model1> call = apiService.getcounters(bearer, newEncrypt);
         call.enqueue(cb);
     }
 
@@ -122,8 +133,9 @@ public class DataManger {
             return aesUtil.encrypt("admin_" + ((calendar.getTimeInMillis() / 1000) - 60), "egems_2013_grms_2017_provizit_2020");
         } else {
             if (context != null) {
-                SharedPreferences sharedPreferences1 = context.getSharedPreferences("Provizit_Schedular", MODE_PRIVATE);
-                return aesUtil.encrypt(sharedPreferences1.getString("comp_id", null) + "_" + ((calendar.getTimeInMillis() / 1000) - 60), "egems_2013_grms_2017_provizit_2020");
+                String comp_id = Preferences.loadStringValue(context, Preferences.comp_id, "");
+                Log.e("comp_id_",comp_id);
+                return aesUtil.encrypt(comp_id + "_" + ((calendar.getTimeInMillis() / 1000) - 60), "egems_2013_grms_2017_provizit_2020");
             }
             return "";
         }
