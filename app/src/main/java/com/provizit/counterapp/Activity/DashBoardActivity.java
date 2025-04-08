@@ -84,9 +84,10 @@ public class DashBoardActivity extends AppCompatActivity {
     }
 
     private void inits() {
+        //Company Logo
         String comp_id = Preferences.loadStringValue(DashBoardActivity.this, Preferences.comp_id, "");
         String companyLogo = Preferences.loadStringValue(DashBoardActivity.this, Preferences.companyLogo, "");
-        Log.e("companyLogo_",companyLogo);
+        Log.e("companyLogo_",DataManger.IMAGE_URL + "/uploads/" + comp_id + "/" + companyLogo);
         Glide.with(DashBoardActivity.this).load(DataManger.IMAGE_URL + "/uploads/" + comp_id + "/" + companyLogo)
                 .into(binding.logo);
 
