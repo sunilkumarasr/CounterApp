@@ -24,6 +24,7 @@ import com.provizit.counterapp.Config.ViewController;
 import com.provizit.counterapp.Config.Preferences;
 import com.provizit.counterapp.Logins.LoginActivity;
 import com.provizit.counterapp.Models.CompanyData;
+import com.provizit.counterapp.Models.CounterSlotDetailsModel;
 import com.provizit.counterapp.Models.Model;
 import com.provizit.counterapp.Models.Model1;
 import com.provizit.counterapp.R;
@@ -66,20 +67,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
         inits();
 
-        counterList = new ArrayList<>();
 
-        showCustomCounterListDialog();
-
-        runningTime();
-
-        binding.linearCount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AnimationSet animationp = ViewController.animation();
-                view.startAnimation(animationp);
-                showCustomCounterListDialog();
-            }
-        });
 
     }
 
@@ -90,6 +78,23 @@ public class DashBoardActivity extends AppCompatActivity {
         Log.e("companyLogo_",DataManger.IMAGE_URL + "/uploads/" + comp_id + "/" + companyLogo);
         Glide.with(DashBoardActivity.this).load(DataManger.IMAGE_URL + "/uploads/" + comp_id + "/" + companyLogo)
                 .into(binding.logo);
+
+
+        counterList = new ArrayList<>();
+        showCustomCounterListDialog();
+
+        runningTimeShow();
+
+        reloadCounterSlotDetails();
+
+        binding.linearCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationSet animationp = ViewController.animation();
+                view.startAnimation(animationp);
+                showCustomCounterListDialog();
+            }
+        });
 
         binding.logo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,11 +149,9 @@ public class DashBoardActivity extends AppCompatActivity {
             }
         });
 
-
-        reloadCounterSlotDetails();
     }
 
-    private void runningTime() {
+    private void runningTimeShow() {
         handler = new Handler();
         timeRunnable = new Runnable() {
             @Override
@@ -280,11 +283,11 @@ public class DashBoardActivity extends AppCompatActivity {
         System.out.println("Today's Start Timestamp: " + timestampInSeconds);
 
         DataManger dataManager = DataManger.getDataManager();
-        dataManager.getcounterslotdetails(new Callback<Model>() {
+        dataManager.getcounterslotdetails(new Callback<CounterSlotDetailsModel>() {
             @SuppressLint("SuspiciousIndentation")
             @Override
-            public void onResponse(Call<Model> call, Response<Model> response) {
-                final Model model = response.body();
+            public void onResponse(Call<CounterSlotDetailsModel> call, Response<CounterSlotDetailsModel> response) {
+                final CounterSlotDetailsModel model = response.body();
                 if (model != null) {
                     Integer statuscode = model.getResult();
                     Integer successcode = 200;
@@ -303,8 +306,9 @@ public class DashBoardActivity extends AppCompatActivity {
                 }
             }
             @Override
-            public void onFailure(Call<Model> call, Throwable t) {
+            public void onFailure(Call<CounterSlotDetailsModel> call, Throwable t) {
                 Log.e("getMessage",t.getMessage());
+                binding.linearCalling.setVisibility(View.INVISIBLE);
             }
         },DashBoardActivity.this, counterId, timestampInSeconds);
     }

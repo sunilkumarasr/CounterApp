@@ -2,11 +2,10 @@ package com.provizit.counterapp.Models;
 
 import java.io.Serializable;
 
-public class Model implements Serializable {
+public class CounterSlotDetailsModel implements Serializable {
+
     public Integer result;
     public CompanyData items;
-
-    public IncompleteData incomplete_data;
 
     public Integer getResult() {
         return result;
@@ -24,11 +23,4 @@ public class Model implements Serializable {
         this.items = items;
     }
 
-    public IncompleteData getIncomplete_data() {
-        return incomplete_data;
-    }
-
-    public void setIncomplete_data(IncompleteData incomplete_data) {
-        this.incomplete_data = incomplete_data;
-    }
 }

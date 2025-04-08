@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.provizit.counterapp.Config.Preferences;
+import com.provizit.counterapp.Models.CounterSlotDetailsModel;
 import com.provizit.counterapp.Models.Model;
 import com.provizit.counterapp.Models.Model1;
 import com.provizit.counterapp.Models.OutlookModel;
@@ -95,11 +96,11 @@ public class DataManger {
         call.enqueue(cb);
     }
 
-    public void getcounterslotdetails(Callback<Model> cb, Context context, String counterId, Long dateStamp) {
+    public void getcounterslotdetails(Callback<CounterSlotDetailsModel> cb, Context context, String counterId, Long dateStamp) {
         API apiService = retrofit.create(API.class);
         String newEncrypt = encrypt(context, false);
         String bearer = BEARER + newEncrypt;
-        Call<Model> call = apiService.getcounterslotdetails(bearer, newEncrypt, counterId, dateStamp);
+        Call<CounterSlotDetailsModel> call = apiService.getcounterslotdetails(bearer, newEncrypt, counterId, dateStamp);
         call.enqueue(cb);
     }
 

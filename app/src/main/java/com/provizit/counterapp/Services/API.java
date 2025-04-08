@@ -1,6 +1,7 @@
 package com.provizit.counterapp.Services;
 
 import com.google.gson.JsonObject;
+import com.provizit.counterapp.Models.CounterSlotDetailsModel;
 import com.provizit.counterapp.Models.Model;
 import com.provizit.counterapp.Models.Model1;
 import com.provizit.counterapp.Models.OutlookModel;
@@ -23,7 +24,7 @@ public interface API {
     Call<Model1> getcounters(@Header("Authorization") String Bearer, @Header("DeviceId") String header);
 
     @GET("slots/getcounterslotdetails")
-    Call<Model> getcounterslotdetails(@Header("Authorization") String Bearer, @Header("DeviceId") String header, @Query("counter_id") String counter_id, @Query("date") Long date);
+    Call<CounterSlotDetailsModel> getcounterslotdetails(@Header("Authorization") String Bearer, @Header("DeviceId") String header, @Query("counter_id") String counter_id, @Query("date") Long date);
 
     @GET("company/getmeetingrooms")
     Call<Model1> getmeetingrooms(@Header("Authorization") String Bearer, @Header("DeviceId") String header, @Query("id") String id, @Query("location") String location);
