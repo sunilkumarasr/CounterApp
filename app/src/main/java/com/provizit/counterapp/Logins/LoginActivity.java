@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     Log.e("Password",aesUtil.decrypt(binding.editEmail.getText().toString().trim(),pwd));
-                    userLogin(gsonObject);
+                    counterLogin(gsonObject);
                 }else {
                     Toast.makeText(getApplicationContext(),"Please Agree & Continue",Toast.LENGTH_SHORT).show();
                 }
@@ -98,9 +98,9 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void userLogin(JsonObject jsonObject) {
+    private void counterLogin(JsonObject jsonObject) {
         DataManger dataManager = DataManger.getDataManager();
-        dataManager.userLogin(new Callback<Model>() {
+        dataManager.counterLogin(new Callback<Model>() {
             @SuppressLint("SuspiciousIndentation")
             @Override
             public void onResponse(Call<Model> call, Response<Model> response) {
@@ -134,6 +134,9 @@ public class LoginActivity extends AppCompatActivity {
                         Preferences.saveStringValue(getApplicationContext(), Preferences.comp_id, items.getComp_id());
                         Preferences.saveStringValue(getApplicationContext(), Preferences.password, binding.editPassword.getText().toString().trim());
                         Preferences.saveStringValue(getApplicationContext(), Preferences.email, binding.editEmail.getText().toString().trim().toLowerCase());
+                        if (model.getIncomplete_data().getPic() != null && model.getIncomplete_data().getPic().size() != 0) {
+                            Preferences.saveStringValue(getApplicationContext(), Preferences.companyLogo, model.getIncomplete_data().getPic().get(0));
+                        }
 
                         Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

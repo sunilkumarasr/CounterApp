@@ -17,10 +17,13 @@ public interface API {
     Call<Model> getuserDetails(@Header("Authorization") String Bearer, @Header("DeviceId") String header, @Query("id") String id);
 
     @POST("setup/counterLogin")
-    Call<Model> getuserLogin(@Header("Authorization") String Bearer, @Header("DeviceId") String header, @Body JsonObject jsonBody);
+    Call<Model> counterLogin(@Header("Authorization") String Bearer, @Header("DeviceId") String header, @Body JsonObject jsonBody);
 
     @GET("company/getcounters")
     Call<Model1> getcounters(@Header("Authorization") String Bearer, @Header("DeviceId") String header);
+
+    @GET("slots/getcounterslotdetails")
+    Call<Model> getcounterslotdetails(@Header("Authorization") String Bearer, @Header("DeviceId") String header, @Query("counter_id") String counter_id, @Query("date") Long date);
 
     @GET("company/getmeetingrooms")
     Call<Model1> getmeetingrooms(@Header("Authorization") String Bearer, @Header("DeviceId") String header, @Query("id") String id, @Query("location") String location);

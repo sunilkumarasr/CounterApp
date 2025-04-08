@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class CompanyData implements Serializable {
     private RoleDetails roleDetails;
     CommonObject hierarchys;
+    UserDetails userDetails;
     private EmpData empData;
 
     private AutoShutDownModel today;
@@ -530,4 +531,11 @@ public class CompanyData implements Serializable {
         return nextday;
     }
 
+    public UserDetails getUserDetails() {
+        return userDetails;
+    }
+
+    public void setUserDetails(UserDetails userDetails) {
+        this.userDetails = userDetails;
+    }
 }

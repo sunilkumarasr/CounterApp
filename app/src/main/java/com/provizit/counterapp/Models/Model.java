@@ -6,6 +6,8 @@ public class Model implements Serializable {
     public Integer result;
     public CompanyData items;
 
+    IncompleteData incomplete_data;
+
     public Integer getResult() {
         return result;
     }
@@ -20,5 +22,13 @@ public class Model implements Serializable {
 
     public void setItems(CompanyData items) {
         this.items = items;
+    }
+
+    public IncompleteData getIncomplete_data() {
+        return incomplete_data;
+    }
+
+    public void setIncomplete_data(IncompleteData incomplete_data) {
+        this.incomplete_data = incomplete_data;
     }
 }

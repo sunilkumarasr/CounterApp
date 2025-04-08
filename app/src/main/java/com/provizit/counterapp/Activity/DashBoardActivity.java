@@ -18,11 +18,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.provizit.counterapp.Adapters.CounterAdapter;
 import com.provizit.counterapp.Config.ViewController;
 import com.provizit.counterapp.Config.Preferences;
 import com.provizit.counterapp.Logins.LoginActivity;
 import com.provizit.counterapp.Models.CompanyData;
+import com.provizit.counterapp.Models.Model;
 import com.provizit.counterapp.Models.Model1;
 import com.provizit.counterapp.R;
 import com.provizit.counterapp.Services.DataManger;
@@ -30,8 +32,13 @@ import com.provizit.counterapp.databinding.ActivityCounterBinding;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+import java.util.TimeZone;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -77,6 +84,12 @@ public class DashBoardActivity extends AppCompatActivity {
     }
 
     private void inits() {
+        String comp_id = Preferences.loadStringValue(DashBoardActivity.this, Preferences.comp_id, "");
+        String companyLogo = Preferences.loadStringValue(DashBoardActivity.this, Preferences.companyLogo, "");
+        Log.e("companyLogo_",companyLogo);
+        Glide.with(DashBoardActivity.this).load(DataManger.IMAGE_URL + "/uploads/" + comp_id + "/" + companyLogo)
+                .into(binding.logo);
+
         binding.logo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,6 +142,9 @@ public class DashBoardActivity extends AppCompatActivity {
 
             }
         });
+
+
+        reloadCounterSlotDetails();
     }
 
     private void runningTime() {
@@ -176,6 +192,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
     }
 
+    //counter number
     private void getcounters(Dialog dialog, RecyclerView recyclerView, TextView txtNoData) {
         ViewController.ShowProgressBar(DashBoardActivity.this);
         DataManger dataManager = DataManger.getDataManager();
@@ -196,14 +213,22 @@ public class DashBoardActivity extends AppCompatActivity {
                     } else if (statuscode.equals(not_verified)) {
 
                     } else if (statuscode.equals(successcode)) {
+                        ArrayList<CompanyData> items = new ArrayList<>(model.getItems());
                         counterList.clear();
-                        counterList.addAll(model.getItems());
-                        if (counterList != null && !counterList.isEmpty()){
+
+                        if (!items.isEmpty()){
+                            for (CompanyData item : items) {
+                                if (item.getActive()){
+                                    counterList.add(item);
+                                }
+                            }
                             recyclerView.setLayoutManager(new LinearLayoutManager(DashBoardActivity.this));
                             CounterAdapter counterAdapter = new CounterAdapter(DashBoardActivity.this, counterList, new CounterAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(CompanyData counterItem) {
-                                    binding.txtName.setText(counterItem.getName());
+                                    binding.txtToken.setText(counterItem.getName());
+                                    Preferences.saveStringValue(getApplicationContext(), Preferences.counterId, counterItem.get_id().get$oid());
+                                    getcounterslotdetails(counterItem.get_id().get$oid());
                                     dialog.dismiss();
                                 }
                             });
@@ -222,6 +247,65 @@ public class DashBoardActivity extends AppCompatActivity {
                 ViewController.DismissProgressBar();
             }
         },DashBoardActivity.this);
+    }
+
+    private void reloadCounterSlotDetails() {
+        // Create a ScheduledExecutorService for background tasks
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+
+        Runnable task = new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String counterId = Preferences.loadStringValue(getApplicationContext(), Preferences.counterId, "");
+                    if (!counterId.equalsIgnoreCase("")) {
+                        getcounterslotdetails(counterId);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        // Schedule the task to run immediately, and then every 1 minute (60 seconds)
+        scheduler.scheduleAtFixedRate(task, 0, 1, TimeUnit.MINUTES);
+    }
+    private void getcounterslotdetails(String counterId) {
+
+        //date Stamp
+        Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+        calendar.set(2025, Calendar.APRIL, 8, 0, 0, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        long timestampInSeconds = calendar.getTimeInMillis() / 1000;
+        System.out.println("Today's Start Timestamp: " + timestampInSeconds);
+
+        DataManger dataManager = DataManger.getDataManager();
+        dataManager.getcounterslotdetails(new Callback<Model>() {
+            @SuppressLint("SuspiciousIndentation")
+            @Override
+            public void onResponse(Call<Model> call, Response<Model> response) {
+                final Model model = response.body();
+                if (model != null) {
+                    Integer statuscode = model.getResult();
+                    Integer successcode = 200;
+                    Integer failurecode = 201;
+                    Integer not_verified = 404;
+                    if (statuscode.equals(failurecode)) {
+                        binding.linearCalling.setVisibility(View.INVISIBLE);
+                    } else if (statuscode.equals(not_verified)) {
+                        binding.linearCalling.setVisibility(View.INVISIBLE);
+                    } else if (statuscode.equals(successcode)) {
+                        binding.linearCalling.setVisibility(View.VISIBLE);
+
+                        binding.txtName.setText(model.getItems().getUserDetails().getName());
+
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Model> call, Throwable t) {
+                Log.e("getMessage",t.getMessage());
+            }
+        },DashBoardActivity.this, counterId, timestampInSeconds);
     }
 
     @Override

@@ -1,16 +1,18 @@
 package com.provizit.counterapp.Models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class IncompleteData implements Serializable {
-    public String  ios;
-    public String scheduler;
 
-    public String getIos() {
-        return ios;
+    private ArrayList<String> pic;
+
+
+    public ArrayList<String> getPic() {
+        return pic;
     }
 
-    public String getScheduler() {
-        return scheduler;
+    public void setPic(ArrayList<String> pic) {
+        this.pic = pic;
     }
 }

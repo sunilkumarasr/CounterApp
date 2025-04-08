@@ -79,11 +79,11 @@ public class DataManger {
         call.enqueue(cb);
     }
 
-    public void userLogin(Callback<Model> cb, Context context, JsonObject data) {
+    public void counterLogin(Callback<Model> cb, Context context, JsonObject data) {
         API apiService = retrofit.create(API.class);
         String newEncrypt = encrypt(context, false);
         String bearer = BEARER + newEncrypt;
-        Call<Model> call = apiService.getuserLogin(bearer, newEncrypt, data);
+        Call<Model> call = apiService.counterLogin(bearer, newEncrypt, data);
         call.enqueue(cb);
     }
 
@@ -92,6 +92,14 @@ public class DataManger {
         String newEncrypt = encrypt(context, false);
         String bearer = BEARER + newEncrypt;
         Call<Model1> call = apiService.getcounters(bearer, newEncrypt);
+        call.enqueue(cb);
+    }
+
+    public void getcounterslotdetails(Callback<Model> cb, Context context, String counterId, Long dateStamp) {
+        API apiService = retrofit.create(API.class);
+        String newEncrypt = encrypt(context, false);
+        String bearer = BEARER + newEncrypt;
+        Call<Model> call = apiService.getcounterslotdetails(bearer, newEncrypt, counterId, dateStamp);
         call.enqueue(cb);
     }
 
