@@ -22,11 +22,11 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Activitys.DashBoardActivity"
+            android:name=".Activity.DashBoardActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Activitys.PrivacyPolicyActivity"
+            android:name=".Activity.PrivacyPolicyActivity"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
@@ -34,7 +34,7 @@
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".Activitys.SplashScreenActivity"
+            android:name=".Activity.SplashScreenActivity"
             android:exported="true"
             android:screenOrientation="landscape" >
             <intent-filter>

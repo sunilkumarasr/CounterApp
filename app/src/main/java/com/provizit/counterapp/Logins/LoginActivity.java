@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.provizit.counterapp.Activitys.DashBoardActivity;
-import com.provizit.counterapp.Activitys.PrivacyPolicyActivity;
+import com.provizit.counterapp.Activity.DashBoardActivity;
+import com.provizit.counterapp.Activity.PrivacyPolicyActivity;
 import com.provizit.counterapp.Config.ViewController;
 import com.provizit.counterapp.Models.CompanyData;
 import com.provizit.counterapp.Models.Model;
@@ -132,6 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                         items = model.getItems();
 
                         Preferences.saveStringValue(getApplicationContext(), Preferences.comp_id, items.getComp_id());
+                        Preferences.saveStringValue(getApplicationContext(), Preferences.password, binding.editPassword.getText().toString().trim());
                         Preferences.saveStringValue(getApplicationContext(), Preferences.email, binding.editEmail.getText().toString().trim().toLowerCase());
 
                         Intent intent = new Intent(LoginActivity.this, DashBoardActivity.class);

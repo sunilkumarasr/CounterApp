@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
+    android:layout_width="@dimen/_300sdp"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="20dp">
@@ -19,9 +19,8 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Title"
                 android:textColor="@color/white"
-                android:textSize="15dp"
+                android:textSize="@dimen/_15ssp"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/roboto_medium"/>
@@ -36,7 +35,7 @@
             android:padding="15dp"
             android:text=""
             android:textColor="@color/colorPrimary"
-            android:textSize="12dp"
+            android:textSize="@dimen/_13ssp"
             android:fontFamily="@font/roboto_medium"/>
         <View
             android:layout_width="match_parent"
@@ -55,7 +54,7 @@
                 android:layout_weight="1"
                 android:text="@string/Yes"
                 android:textColor="@color/colorPrimary"
-                android:textSize="13dp"
+                android:textSize="@dimen/_13ssp"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"/>
             <View
@@ -69,7 +68,7 @@
                 android:layout_weight="1"
                 android:text="@string/No"
                 android:textColor="@color/colorPrimary"
-                android:textSize="13dp"
+                android:textSize="@dimen/_13ssp"
                 android:fontFamily="@font/roboto_medium"
                 android:gravity="center"/>
         </LinearLayout>
@@ -77,6 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/hash"/>
+
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

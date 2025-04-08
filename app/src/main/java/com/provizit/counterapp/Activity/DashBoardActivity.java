@@ -1,18 +1,18 @@
-package com.provizit.counterapp.Activitys;
+package com.provizit.counterapp.Activity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Gravity;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AnimationSet;
+import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.provizit.counterapp.Adapters.CounterAdapter;
 import com.provizit.counterapp.Config.ViewController;
 import com.provizit.counterapp.Config.Preferences;
+import com.provizit.counterapp.Logins.LoginActivity;
 import com.provizit.counterapp.Models.CompanyData;
 import com.provizit.counterapp.Models.Model1;
 import com.provizit.counterapp.R;
@@ -56,12 +57,78 @@ public class DashBoardActivity extends AppCompatActivity {
         ViewController.barPrimaryColor(DashBoardActivity.this);
         Preferences.saveStringValue(getApplicationContext(), Preferences.LOGINCHECK, "true");
 
+        inits();
+
         counterList = new ArrayList<>();
 
         showCustomCounterListDialog();
 
         runningTime();
 
+        binding.linearCount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationSet animationp = ViewController.animation();
+                view.startAnimation(animationp);
+                showCustomCounterListDialog();
+            }
+        });
+
+    }
+
+    private void inits() {
+        binding.logo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AnimationSet animation = ViewController.animation();
+                view.startAnimation(animation);
+
+                final Dialog dialog = new Dialog(DashBoardActivity.this);
+                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setCancelable(false);
+                dialog.setContentView(R.layout.logout_popup_dailouge);
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+                TextView txtWorning = dialog.findViewById(R.id.txtWorning);
+                EditText editPassword = dialog.findViewById(R.id.editPassword);
+                TextView txt_yes = dialog.findViewById(R.id.txt_yes);
+                TextView txt_no = dialog.findViewById(R.id.txt_no);
+
+                txt_yes.setOnClickListener(v1 -> {
+                    AnimationSet animationp = ViewController.animation();
+                    v1.startAnimation(animationp);
+                    String password = Preferences.loadStringValue(DashBoardActivity.this, Preferences.password, "");
+
+                    if (editPassword.getText().toString().equalsIgnoreCase("")){
+                        txtWorning.setVisibility(View.VISIBLE);
+                    }else if (!editPassword.getText().toString().equalsIgnoreCase(password)){
+                        txtWorning.setVisibility(View.VISIBLE);
+                    }else {
+                        ViewController.clearCache(DashBoardActivity.this);
+
+                        Intent intent = new Intent(DashBoardActivity.this, LoginActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        Preferences.saveStringValue(getApplicationContext(), "status", "failed");
+                        Preferences.deleteSharedPreferences(getApplicationContext());
+                        startActivity(intent);
+                        finish();
+
+                        dialog.dismiss();
+                    }
+
+                });
+                txt_no.setOnClickListener(v12 -> {
+                    AnimationSet animationp = ViewController.animation();
+                    v12.startAnimation(animationp);
+                    dialog.dismiss();
+                });
+                dialog.show();
+
+            }
+        });
     }
 
     private void runningTime() {
@@ -92,38 +159,32 @@ public class DashBoardActivity extends AppCompatActivity {
     }
 
     private void showCustomCounterListDialog() {
-        Dialog dialog = new Dialog(this);
-
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.custom_counter_list_dailouge, null);
-        dialog.setContentView(dialogView);
-        dialog.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().getAttributes().windowAnimations = R.style.BottomSheetDialogAnimation;
+        Dialog dialog = new Dialog(DashBoardActivity.this);
+        Objects.requireNonNull(dialog.getWindow()).clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setContentView(R.layout.custom_counter_list_dailouge);
+        Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 
         // Set dialog to be cancellable when touching outside
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
 
-        TextView txtNoData = dialogView.findViewById(R.id.txtNoData);
-        RecyclerView recyclerView = dialogView.findViewById(R.id.recyclerView);
+        TextView txtNoData = dialog.findViewById(R.id.txtNoData);
+        RecyclerView recyclerView = dialog.findViewById(R.id.recyclerView);
         getcounters(dialog,recyclerView, txtNoData);
 
-
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setGravity(Gravity.BOTTOM);
-        }
-
-        dialog.show();
     }
 
     private void getcounters(Dialog dialog, RecyclerView recyclerView, TextView txtNoData) {
-
+        ViewController.ShowProgressBar(DashBoardActivity.this);
         DataManger dataManager = DataManger.getDataManager();
         dataManager.getcounters(new Callback<Model1>() {
             @SuppressLint("SuspiciousIndentation")
             @Override
             public void onResponse(Call<Model1> call, Response<Model1> response) {
+                dialog.show();
+                ViewController.DismissProgressBar();
                 final Model1 model = response.body();
                 if (model != null) {
                     Integer statuscode = model.getResult();
@@ -135,15 +196,14 @@ public class DashBoardActivity extends AppCompatActivity {
                     } else if (statuscode.equals(not_verified)) {
 
                     } else if (statuscode.equals(successcode)) {
-
+                        counterList.clear();
                         counterList.addAll(model.getItems());
                         if (counterList != null && !counterList.isEmpty()){
                             recyclerView.setLayoutManager(new LinearLayoutManager(DashBoardActivity.this));
                             CounterAdapter counterAdapter = new CounterAdapter(DashBoardActivity.this, counterList, new CounterAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(CompanyData counterItem) {
-                                    Toast.makeText(DashBoardActivity.this, "Clicked on: " + counterItem.getName(), Toast.LENGTH_SHORT).show();
-
+                                    binding.txtName.setText(counterItem.getName());
                                     dialog.dismiss();
                                 }
                             });
@@ -158,7 +218,8 @@ public class DashBoardActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<Model1> call, Throwable t) {
-
+                Log.e("getMessage",t.getMessage());
+                ViewController.DismissProgressBar();
             }
         },DashBoardActivity.this);
     }
@@ -170,15 +231,14 @@ public class DashBoardActivity extends AppCompatActivity {
         handler.removeCallbacks(timeRunnable);
     }
 
-
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+       // super.onBackPressed();
         back_popup();
     }
     private void back_popup() {
         final Dialog dialog = new Dialog(DashBoardActivity.this);
-        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+        Objects.requireNonNull(dialog.getWindow()).clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.popup_back_press);

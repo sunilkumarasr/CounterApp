@@ -10,6 +10,7 @@ public class Preferences {
 
     public final static String LOGINCHECK="LOGINCHECK";
     public final static String comp_id="comp_id";
+    public final static String password="password";
     public final static String email="email";
 
 

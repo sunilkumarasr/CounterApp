@@ -1,4 +1,4 @@
-package com.provizit.counterapp.Activitys;
+package com.provizit.counterapp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,7 +37,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    sleep(1200);
+                    sleep(3000);
                 } catch (Exception ignored) {
                 } finally {
                     if (LOGINCHECK.equals("true")) {

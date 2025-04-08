@@ -12,4 +12,8 @@
     <string name="Do_you_want_to_exit_the_application">Do you want to exit the Application?</string>
     <string name="Yes">Yes</string>
     <string name="No">No</string>
+    <string name="confirm">Confirm</string>
+    <string name="logout_note">Are you sure you want to logout?</string>
+    <string name="EnterYourPassword">Enter Your Password</string>
+    <string name="PleaseEnterCorrectPassword">Please enter correct password</string>
 </resources>
