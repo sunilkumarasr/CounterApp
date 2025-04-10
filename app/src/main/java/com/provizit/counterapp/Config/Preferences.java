@@ -14,6 +14,7 @@ public class Preferences {
     public final static String email="email";
     public final static String companyLogo="companyLogo";
     public final static String counterId="counterId";
+    public final static String counterSlotUserId="counterSlotUserId";
 
 
     public static void saveFloatValue(Context context, String key, float value) {

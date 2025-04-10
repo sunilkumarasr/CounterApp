@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -31,6 +32,9 @@ import com.provizit.counterapp.R;
 import com.provizit.counterapp.Services.DataManger;
 import com.provizit.counterapp.databinding.ActivityCounterBinding;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -66,7 +70,6 @@ public class DashBoardActivity extends AppCompatActivity {
         Preferences.saveStringValue(getApplicationContext(), Preferences.LOGINCHECK, "true");
 
         inits();
-
 
 
     }
@@ -232,7 +235,7 @@ public class DashBoardActivity extends AppCompatActivity {
                                 public void onItemClick(CompanyData counterItem) {
                                     binding.txtToken.setText(counterItem.getName());
                                     Preferences.saveStringValue(getApplicationContext(), Preferences.counterId, counterItem.get_id().get$oid());
-                                    getcounterslotdetails(counterItem.get_id().get$oid());
+                                    getcounterslotdetails(counterItem.get_id().get$oid(),"");
                                     dialog.dismiss();
                                 }
                             });
@@ -263,7 +266,7 @@ public class DashBoardActivity extends AppCompatActivity {
                 try {
                     String counterId = Preferences.loadStringValue(getApplicationContext(), Preferences.counterId, "");
                     if (!counterId.equalsIgnoreCase("")) {
-                        getcounterslotdetails(counterId);
+                        getcounterslotdetails(counterId,"1");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -273,14 +276,21 @@ public class DashBoardActivity extends AppCompatActivity {
         // Schedule the task to run immediately, and then every 1 minute (60 seconds)
         scheduler.scheduleAtFixedRate(task, 0, 1, TimeUnit.MINUTES);
     }
-    private void getcounterslotdetails(String counterId) {
+    private void getcounterslotdetails(String counterId, String type) {
 
         //date Stamp
+        // Create a Calendar instance for UTC time zone
         Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-        calendar.set(2025, Calendar.APRIL, 8, 0, 0, 0);
+        int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        int second = calendar.get(Calendar.SECOND);
+        calendar.set(year, month, dayOfMonth, 0, 0, 0);
         calendar.set(Calendar.MILLISECOND, 0);
         long timestampInSeconds = calendar.getTimeInMillis() / 1000;
-        System.out.println("Today's Start Timestamp: " + timestampInSeconds);
+        System.out.println("Today's Start Timestamp (UTC): " + timestampInSeconds);
 
         DataManger dataManager = DataManger.getDataManager();
         dataManager.getcounterslotdetails(new Callback<CounterSlotDetailsModel>() {
@@ -294,13 +304,35 @@ public class DashBoardActivity extends AppCompatActivity {
                     Integer failurecode = 201;
                     Integer not_verified = 404;
                     if (statuscode.equals(failurecode)) {
-                        binding.linearCalling.setVisibility(View.INVISIBLE);
+                        binding.txtName.setVisibility(View.GONE);
+                        binding.txtCounterStatus.setText("We are here to serve you. Please wait for your turn");
+                        binding.linearCalling.setBackgroundResource(R.drawable.round_blue);
+                        //blue light
+                        adbcommand("echo w 0x06 > ./sys/devices/platform/led_con_h/zigbee_reset");
                     } else if (statuscode.equals(not_verified)) {
-                        binding.linearCalling.setVisibility(View.INVISIBLE);
+                        binding.txtName.setVisibility(View.GONE);
+                        binding.txtCounterStatus.setText("We are here to serve you. Please wait for your turn");
+                        binding.linearCalling.setBackgroundResource(R.drawable.round_blue);
+                        //blue light
+                        adbcommand("echo w 0x06 > ./sys/devices/platform/led_con_h/zigbee_reset");
                     } else if (statuscode.equals(successcode)) {
-                        binding.linearCalling.setVisibility(View.VISIBLE);
-
+                        //Green light
+                        adbcommand("echo w 0x05 > ./sys/devices/platform/led_con_h/zigbee_reset");
+                        binding.linearCalling.setBackgroundResource(R.drawable.round_green);
+                        binding.txtCounterStatus.setText("Serving.....");
+                        binding.txtName.setVisibility(View.VISIBLE);
                         binding.txtName.setText(model.getItems().getUserDetails().getName());
+
+                        if (!type.equalsIgnoreCase("")){
+                            String counterSlotUserId = Preferences.loadStringValue(DashBoardActivity.this, Preferences.counterSlotUserId, "");
+                            if (!counterSlotUserId.equalsIgnoreCase(model.getItems().getUserDetails().get_id().get$oid())){
+                                Preferences.saveStringValue(getApplicationContext(), Preferences.counterSlotUserId, model.getItems().getUserDetails().get_id().get$oid());
+                                MediaPlayer mediaPlayer = MediaPlayer.create(DashBoardActivity.this, R.raw.buzzer);
+                                mediaPlayer.start();
+                            }else {
+                                Preferences.saveStringValue(getApplicationContext(), Preferences.counterSlotUserId, model.getItems().getUserDetails().get_id().get$oid());
+                            }
+                        }
 
                     }
                 }
@@ -308,9 +340,35 @@ public class DashBoardActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<CounterSlotDetailsModel> call, Throwable t) {
                 Log.e("getMessage",t.getMessage());
-                binding.linearCalling.setVisibility(View.INVISIBLE);
             }
         },DashBoardActivity.this, counterId, timestampInSeconds);
+    }
+
+    //lights code
+    public String adbcommand(String command) {
+        Process process = null;
+        DataOutputStream os = null;
+        String excresult = "";
+        try {
+            process = Runtime.getRuntime().exec("su");
+            os = new DataOutputStream(process.getOutputStream());
+            os.writeBytes(command + "\n");
+            os.writeBytes("exit\n");
+            os.flush();
+            BufferedReader in = new BufferedReader(new InputStreamReader(
+                    process.getInputStream()));
+            StringBuilder stringBuffer = new StringBuilder();
+            String line = null;
+            while ((line = in.readLine()) != null) {
+                stringBuffer.append(line + " ");
+            }
+            excresult = stringBuffer.toString();
+            os.close();
+            // System.out.println(excresult);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return excresult;
     }
 
     @Override

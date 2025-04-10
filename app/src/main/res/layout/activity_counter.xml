@@ -19,7 +19,7 @@
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/logo"
                 android:layout_width="@dimen/_180sdp"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:scaleType="fitStart"
@@ -113,20 +113,21 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:background="@drawable/round_green">
+                android:background="@drawable/round_blue">
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/txtCounterStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
-                    android:text="Calling....."
+                    android:text=""
                     android:textSize="40sp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:fontFamily="@font/nunito_semibold"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:visibility="gone"
                     android:id="@+id/txtName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

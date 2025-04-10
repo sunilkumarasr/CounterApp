@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class UserDetails implements Serializable {
 
+    CommonObject _id;
     private String name;
 
     public String getName() {
@@ -12,5 +13,14 @@ public class UserDetails implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    public CommonObject get_id() {
+        return _id;
+    }
+
+    public void set_id(CommonObject _id) {
+        this._id = _id;
     }
 }
