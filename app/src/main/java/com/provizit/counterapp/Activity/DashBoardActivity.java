@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -233,7 +234,7 @@ public class DashBoardActivity extends AppCompatActivity {
                             CounterAdapter counterAdapter = new CounterAdapter(DashBoardActivity.this, counterList, new CounterAdapter.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(CompanyData counterItem) {
-                                    binding.txtToken.setText(counterItem.getName());
+                                    binding.txtCounter.setText(counterItem.getName());
                                     Preferences.saveStringValue(getApplicationContext(), Preferences.counterId, counterItem.get_id().get$oid());
                                     getcounterslotdetails(counterItem.get_id().get$oid(),"");
                                     dialog.dismiss();
@@ -304,22 +305,38 @@ public class DashBoardActivity extends AppCompatActivity {
                     Integer failurecode = 201;
                     Integer not_verified = 404;
                     if (statuscode.equals(failurecode)) {
+                        binding.txtServingTitle.setVisibility(View.GONE);
                         binding.txtName.setVisibility(View.GONE);
-                        binding.txtCounterStatus.setText("We are here to serve you. Please wait for your turn");
-                        binding.linearCalling.setBackgroundResource(R.drawable.round_blue);
+                        binding.txtToken.setVisibility(View.GONE);
+                        binding.linearCounterStatus.setVisibility(View.VISIBLE);
+                        binding.linearNoToken.setVisibility(View.VISIBLE);
+
+                        //change color
+                        int color = ContextCompat.getColor(DashBoardActivity.this, R.color.white);
+                        binding.linearCalling.setBackgroundColor(color);
                         //blue light
                         adbcommand("echo w 0x06 > ./sys/devices/platform/led_con_h/zigbee_reset");
                     } else if (statuscode.equals(not_verified)) {
+                        binding.txtServingTitle.setVisibility(View.GONE);
                         binding.txtName.setVisibility(View.GONE);
-                        binding.txtCounterStatus.setText("We are here to serve you. Please wait for your turn");
-                        binding.linearCalling.setBackgroundResource(R.drawable.round_blue);
+                        binding.txtToken.setVisibility(View.GONE);
+                        binding.linearCounterStatus.setVisibility(View.VISIBLE);
+                        binding.linearNoToken.setVisibility(View.VISIBLE);
+
+                        //change color
+                        int color = ContextCompat.getColor(DashBoardActivity.this, R.color.white);
+                        binding.linearCalling.setBackgroundColor(color);
                         //blue light
                         adbcommand("echo w 0x06 > ./sys/devices/platform/led_con_h/zigbee_reset");
                     } else if (statuscode.equals(successcode)) {
                         //Green light
                         adbcommand("echo w 0x05 > ./sys/devices/platform/led_con_h/zigbee_reset");
-                        binding.linearCalling.setBackgroundResource(R.drawable.round_green);
-                        binding.txtCounterStatus.setText("Serving.....");
+                        int color = ContextCompat.getColor(DashBoardActivity.this, R.color.green);
+                        binding.linearCalling.setBackgroundColor(color);
+                        binding.linearCounterStatus.setVisibility(View.GONE);
+                        binding.linearNoToken.setVisibility(View.GONE);
+                        binding.txtServingTitle.setVisibility(View.VISIBLE);
+                        binding.txtToken.setVisibility(View.VISIBLE);
                         binding.txtName.setVisibility(View.VISIBLE);
                         binding.txtName.setText(model.getItems().getUserDetails().getName());
 

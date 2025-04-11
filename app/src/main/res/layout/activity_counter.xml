@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Activity.DashBoardActivity"
-    android:background="@drawable/bg">
+    android:background="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,33 +14,68 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="#f3f3f5"
+            android:padding="5dp"
+            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_gravity="center_vertical"
+                android:gravity="start"
+                android:layout_weight="1">
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/logo"
+                    android:layout_width="@dimen/_220sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_12sdp"
+                    android:src="@drawable/logo"
+                    android:scaleType="fitStart" />
+            </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/logo"
-                android:layout_width="@dimen/_180sdp"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:scaleType="fitStart"
-                android:src="@drawable/logo"
-                android:layout_marginStart="@dimen/_16sdp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtRunningDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:text="Mon, 26 Sep 2022"
+                    android:singleLine="true"
+                    android:textSize="@dimen/_25ssp"
+                    android:textColor="@color/darkColorAccent"
+                    android:textStyle="bold"
+                    app:fontFamily="@font/nunito_semibold"/>
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/txtRunningTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:textAllCaps="true"
+                    android:text="00:00 00"
+                    android:textSize="@dimen/_30ssp"
+                    android:singleLine="true"
+                    android:textColor="@color/darkColorAccent"
+                    app:fontFamily="@font/roboto_bold"/>
+            </LinearLayout>
+
+
+
 
         </LinearLayout>
-        <View
-            android:id="@+id/line1"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:layout_height="1dp"
-            android:background="#7C707070"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@color/white"
             android:orientation="vertical">
 
             <LinearLayout
@@ -48,62 +83,116 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:layout_weight="1"
-                android:background="@drawable/round_blue"
-                android:layout_marginBottom="@dimen/_10sdp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:gravity="center_vertical"
-                    android:layout_weight="0.7">
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txtRunningTime"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textAllCaps="true"
-                        android:text="01:21 PM"
-                        android:textSize="80sp"
-                        android:singleLine="true"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        app:fontFamily="@font/roboto_bold"/>
-
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txtRunningDate"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mon, 26 Sep 2022"
-                        android:singleLine="true"
-                        android:textSize="50sp"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        app:fontFamily="@font/nunito_semibold"/>
-
-                </LinearLayout>
+                android:background="@color/white">
 
                 <LinearLayout
                     android:id="@+id/linearCount"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
                     android:layout_weight="1"
-                    android:background="@drawable/round_white_leftedge_only">
+                    android:background="@color/darkColorAccent"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:orientation="vertical">
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/txtToken"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_40sdp"
+                        android:layout_marginBottom="-25dp"
+                        android:text="Counter"
+                        android:textSize="25sp"
+                        android:fontFamily="@font/roboto_regular"
+                        android:textColor="@color/white"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/txtCounter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_25sdp"
+                        android:text="0"
+                        android:textSize="150sp"
+                        android:textColor="@color/white"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.7"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="@dimen/_150sdp"
+                        android:layout_height="@dimen/_38sdp"
+                        android:layout_marginStart="@dimen/_15sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:background="@drawable/round_dark_blue">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="Token"
+                            android:textSize="35sp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:fontFamily="@font/roboto_regular"/>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="0"
-                        android:textSize="130sp"
-                        android:textColor="@color/black"
-                        android:textStyle="bold"
-                        app:fontFamily="@font/roboto_bold"/>
+                        android:orientation="vertical">
+                        <androidx.appcompat.widget.AppCompatTextView
+                            android:visibility="gone"
+                            android:id="@+id/txtToken"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginStart="@dimen/_80sdp"
+                            android:text="AB56"
+                            android:singleLine="true"
+                            android:textSize="120sp"
+                            android:textColor="@color/darkColorAccent"
+                            app:fontFamily="@font/roboto_regular"/>
+                   
+                        <LinearLayout
+                            android:visibility="gone"
+                            android:id="@+id/linearNoToken"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+                            <View
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_6sdp"
+                                android:background="#e0e2e6"/>
+                            <View
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_6sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:background="#e0e2e6"/>
+                            <View
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_6sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:background="#e0e2e6"/>
+                            <View
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_6sdp"
+                                android:layout_marginStart="@dimen/_10sdp"
+                                android:background="#e0e2e6"/>
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+
                 </LinearLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_5sdp"
+                android:background="#e0e2e6"/>
 
             <LinearLayout
                 android:id="@+id/linearCalling"
@@ -111,30 +200,54 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:background="@drawable/round_blue">
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/txtCounterStatus"
+                android:layout_weight="0.8"
+                android:background="@color/white">
+
+                <LinearLayout
+                    android:id="@+id/linearCounterStatus"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="We are here to serve you."
+                        android:textSize="@dimen/_30ssp"
+                        android:textColor="@color/darkColorAccent"
+                        app:fontFamily="@font/nunito_semibold"/>
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Please wait for your turn"
+                        android:textSize="@dimen/_30ssp"
+                        android:textColor="@color/darkColorAccent"
+                        app:fontFamily="@font/nunito_semibold"/>
+                </LinearLayout>
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:visibility="gone"
+                    android:id="@+id/txtServingTitle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_20sdp"
-                    android:layout_marginEnd="@dimen/_20sdp"
-                    android:text=""
-                    android:textSize="40sp"
+                    android:text="Serving...."
+                    android:textSize="@dimen/_35ssp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    app:fontFamily="@font/nunito_semibold"/>
+                    app:fontFamily="@font/roboto_medium"
+                    android:layout_marginStart="@dimen/_20sdp"/>
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:visibility="gone"
                     android:id="@+id/txtName"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
                     android:layout_marginStart="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_20sdp"
                     android:singleLine="true"
-                    android:textSize="100sp"
+                    android:textSize="120sp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:fontFamily="@font/roboto_bold"/>

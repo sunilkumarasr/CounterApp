@@ -9,6 +9,7 @@
     <color name="colorPrimary">#414F6C</color>
     <color name="colorPrimaryDark">#414F6C</color>
     <color name="colorAccent">#414F6C</color>
+    <color name="darkColorAccent">#01014e</color>
     <color name="hash_color">#DBDBDB</color>
     <color name="white">#FFFFFF</color>
     <color name="hash">#CCCCCC</color>
