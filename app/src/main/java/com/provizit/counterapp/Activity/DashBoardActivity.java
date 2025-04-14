@@ -67,7 +67,10 @@ public class DashBoardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityCounterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ViewController.barPrimaryColor(DashBoardActivity.this);
+        ViewController.changeStatusBarColor(
+                this,
+                ContextCompat.getColor(DashBoardActivity.this, R.color.colorPrimary),
+                false);
         Preferences.saveStringValue(getApplicationContext(), Preferences.LOGINCHECK, "true");
 
         inits();
@@ -305,6 +308,8 @@ public class DashBoardActivity extends AppCompatActivity {
                     Integer failurecode = 201;
                     Integer not_verified = 404;
                     if (statuscode.equals(failurecode)) {
+                        Preferences.saveStringValue(getApplicationContext(), Preferences.counterSlotUserId, "");
+
                         binding.txtServingTitle.setVisibility(View.GONE);
                         binding.txtName.setVisibility(View.GONE);
                         binding.txtToken.setVisibility(View.GONE);
@@ -339,6 +344,7 @@ public class DashBoardActivity extends AppCompatActivity {
                         binding.txtToken.setVisibility(View.VISIBLE);
                         binding.txtName.setVisibility(View.VISIBLE);
                         binding.txtName.setText(model.getItems().getUserDetails().getName());
+                        binding.txtToken.setText(model.getItems().getToken_no());
 
                         if (!type.equalsIgnoreCase("")){
                             String counterSlotUserId = Preferences.loadStringValue(DashBoardActivity.this, Preferences.counterSlotUserId, "");

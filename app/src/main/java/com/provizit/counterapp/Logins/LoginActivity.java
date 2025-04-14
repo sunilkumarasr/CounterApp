@@ -8,11 +8,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.provizit.counterapp.Activity.DashBoardActivity;
 import com.provizit.counterapp.Activity.PrivacyPolicyActivity;
+import com.provizit.counterapp.Activity.SplashScreenActivity;
 import com.provizit.counterapp.Config.ViewController;
 import com.provizit.counterapp.Models.CompanyData;
 import com.provizit.counterapp.Models.Model;
@@ -40,7 +42,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ViewController.barPrimaryColorWhite(LoginActivity.this);
+        ViewController.changeStatusBarColor(
+                this,
+                ContextCompat.getColor(LoginActivity.this, R.color.white),
+                false);
 
         aesUtil = new AESUtil(LoginActivity.this);
 

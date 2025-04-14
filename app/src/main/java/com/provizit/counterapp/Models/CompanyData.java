@@ -55,6 +55,7 @@ public class CompanyData implements Serializable {
     private String link;
     private String rm_email;
     private String designation;
+    private String token_no;
     private CommonObject meetingrooms;
     private ArrayList<History> history;
     private CommonObject entrypoints;
@@ -174,6 +175,14 @@ public class CompanyData implements Serializable {
 
     public String getDesignation() {
         return designation;
+    }
+
+    public String getToken_no() {
+        return token_no;
+    }
+
+    public void setToken_no(String token_no) {
+        this.token_no = token_no;
     }
 
     public ArrayList<History> getHistory() {

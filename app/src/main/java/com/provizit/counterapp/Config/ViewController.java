@@ -12,6 +12,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 
 import androidx.core.content.ContextCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.provizit.counterapp.R;
 
@@ -20,17 +21,15 @@ public class ViewController {
 
     private static ProgressDialog dialog;
 
-    public static void barPrimaryColorWhite(Activity activity) {
+    public static void changeStatusBarColor(Activity activity, int color, boolean isLight) {
         Window window = activity.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(activity, R.color.white));
+        window.setStatusBarColor(color);
+        WindowInsetsControllerCompat insetsController =
+                new WindowInsetsControllerCompat(window, window.getDecorView());
+        insetsController.setAppearanceLightStatusBars(isLight);
     }
 
-    public static void barPrimaryColor(Activity activity) {
-        Window window = activity.getWindow();
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(ContextCompat.getColor(activity, R.color.colorPrimary));
-    }
 
 
     public static AnimationSet animation() {

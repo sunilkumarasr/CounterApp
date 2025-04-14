@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+
 import com.provizit.counterapp.Config.ViewController;
 import com.provizit.counterapp.Logins.LoginActivity;
 import com.provizit.counterapp.R;
@@ -22,7 +24,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivitySplashScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ViewController.barPrimaryColorWhite(SplashScreenActivity.this);
+        ViewController.changeStatusBarColor(
+                this,
+                ContextCompat.getColor(SplashScreenActivity.this, R.color.white),
+                false);
 
         splashAnimation();
 

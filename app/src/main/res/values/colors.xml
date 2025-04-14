@@ -13,6 +13,7 @@
     <color name="hash_color">#DBDBDB</color>
     <color name="white">#FFFFFF</color>
     <color name="hash">#CCCCCC</color>
+    <color name="gray">#f3f3f5</color>
     <color name = "text_color">#494949</color>
     <color name="a_color">#ad2121</color>
     <color name="m_color">#1e90ff</color>
@@ -21,7 +22,7 @@
     <color name="m_color1">#1A414F6C</color>
     <color name="r_color1">#33414F6C</color>
     <color name="blue">#053fbf</color>
-    <color name="green">#018e0a</color>
+    <color name="green">#044e00</color>
     <color name="app_tcolor">#414F6C</color>
     <color name="inprogress">#E4080E</color>
     <color name="soon">#1A8EFB</color>

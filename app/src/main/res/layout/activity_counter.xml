@@ -15,24 +15,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#f3f3f5"
-            android:padding="5dp"
+            android:background="@color/gray"
             android:orientation="horizontal">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_gravity="center_vertical"
-                android:gravity="start"
                 android:layout_weight="1">
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/logo"
-                    android:layout_width="@dimen/_220sdp"
-                    android:layout_height="@dimen/_35sdp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/_12sdp"
-                    android:src="@drawable/logo"
-                    android:scaleType="fitStart" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_60sdp"
+                    android:layout_gravity="start"
+                    android:src="@drawable/logo"/>
             </LinearLayout>
 
             <LinearLayout
@@ -154,7 +150,6 @@
                             app:fontFamily="@font/roboto_regular"/>
                    
                         <LinearLayout
-                            android:visibility="gone"
                             android:id="@+id/linearNoToken"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -199,7 +194,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_weight="0.8"
                 android:background="@color/white">
 
