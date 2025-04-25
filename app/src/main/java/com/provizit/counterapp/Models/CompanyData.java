@@ -56,6 +56,7 @@ public class CompanyData implements Serializable {
     private String rm_email;
     private String designation;
     private String token_no;
+    private boolean serving_status;
     private CommonObject meetingrooms;
     private ArrayList<History> history;
     private CommonObject entrypoints;
@@ -183,6 +184,14 @@ public class CompanyData implements Serializable {
 
     public void setToken_no(String token_no) {
         this.token_no = token_no;
+    }
+
+    public boolean isServing_status() {
+        return serving_status;
+    }
+
+    public void setServing_status(boolean serving_status) {
+        this.serving_status = serving_status;
     }
 
     public ArrayList<History> getHistory() {

@@ -346,6 +346,12 @@ public class DashBoardActivity extends AppCompatActivity {
                         binding.txtName.setText(model.getItems().getUserDetails().getName());
                         binding.txtToken.setText(model.getItems().getToken_no());
 
+                        if (model.getItems().isServing_status()){
+                            binding.txtServingTitle.setText("Serving....");
+                        }else {
+                            binding.txtServingTitle.setText("Calling....");
+                        }
+
                         if (!type.equalsIgnoreCase("")){
                             String counterSlotUserId = Preferences.loadStringValue(DashBoardActivity.this, Preferences.counterSlotUserId, "");
                             if (!counterSlotUserId.equalsIgnoreCase(model.getItems().getUserDetails().get_id().get$oid())){

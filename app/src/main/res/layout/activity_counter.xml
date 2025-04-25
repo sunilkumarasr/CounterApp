@@ -224,7 +224,7 @@
                     android:id="@+id/txtServingTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Serving...."
+                    android:text="Calling...."
                     android:textSize="@dimen/_35ssp"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:textColor="@color/white"
