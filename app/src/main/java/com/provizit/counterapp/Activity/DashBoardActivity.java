@@ -92,6 +92,7 @@ public class DashBoardActivity extends AppCompatActivity {
 
         runningTimeShow();
 
+        //Runnable 15 seconds
         reloadCounterSlotDetails();
 
         binding.linearCount.setOnClickListener(new View.OnClickListener() {
@@ -270,16 +271,18 @@ public class DashBoardActivity extends AppCompatActivity {
                 try {
                     String counterId = Preferences.loadStringValue(getApplicationContext(), Preferences.counterId, "");
                     if (!counterId.equalsIgnoreCase("")) {
-                        getcounterslotdetails(counterId,"1");
+                        getcounterslotdetails(counterId, "1");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         };
-        // Schedule the task to run immediately, and then every 1 minute (60 seconds)
-        scheduler.scheduleAtFixedRate(task, 0, 1, TimeUnit.MINUTES);
+
+        // Schedule the task to run immediately, and then every 15 seconds
+        scheduler.scheduleAtFixedRate(task, 0, 15, TimeUnit.SECONDS);
     }
+
     private void getcounterslotdetails(String counterId, String type) {
 
         //date Stamp
